@@ -4,8 +4,9 @@ MAX_AGE = 14d
 all: link env
 
 link:
-	ln -sf config.nix ~/.config/nixpkgs/config.nix
-	ln -sf overlays ~/.config/nixpkgs/overlays
+	ln -sfn `pwd`/config.nix ~/.config/nixpkgs/config.nix
+	ln -sfn `pwd`/overlays ~/.config/nixpkgs/overlays
+	ln -sfn `pwd`/bin ~/.config/nixpkgs/bin
 
 env: link
 	for i in $(ENVS); do			\

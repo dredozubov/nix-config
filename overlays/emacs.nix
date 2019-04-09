@@ -21,16 +21,19 @@ in customEmacsPackages.emacsWithPackages (epkgs: [ epkgs.evil epkgs.magit ])
 */
 
 rec {
-  emacsEnv = self.myEnvFun {
+  emacsEnv = with super; self.myEnvFun {
     name = "emacs";
     buildInputs = [
-      self.coq_8_9
-      self.coqPackages_8_9.ssreflect
+      coq_8_9
+      coqPackages_8_9.ssreflect
+      super.emacsPackages.proofgeneral_HEAD
+      myAgda
       myEmacs
+      pandoc
     ];
   };
 
-  myEmacs = myEmacsPackages.emacsWithPackages (epkgs: with epkgs; [
+  myPackages = epkgs: with epkgs; [
     (self.runCommand "default.el" {} ''
       mkdir -p $out/share/emacs/site-lisp
       cp ${myEmacsConfig} $out/share/emacs/site-lisp/default.el
@@ -175,7 +178,9 @@ rec {
     yasnippet
     yaxception
     znc
-  ]);
+  ];
+
+  myEmacs = myEmacsPackages.emacsWithPackages myPackages;
 
   myEmacsConfig = self.writeText "default.el" ''
 ;;; enable proof general
@@ -191,11 +196,13 @@ rec {
 (require 'agda2)
   '';
 
+  myAgda = self.haskell.packages.ghc844.Agda;
+
   myEmacsPackages = super.emacsPackagesNg.overrideScope' (eself: esuper: {
 
     # https://github.com/NixOS/nixpkgs/issues/57746
     agda2-mode =
-      let Agda = self.haskell.packages.ghc844.Agda; in
+      let Agda = myAgda; in
       eself.trivialBuild {
         pname = "agda-mode";
         version = Agda.version;
