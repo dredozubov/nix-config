@@ -30,6 +30,9 @@ rec {
       myAgda
       myEmacs
       pandoc
+      gdb
+      lldb
+      clang
     ];
   };
 
@@ -48,6 +51,8 @@ rec {
     bind-key
     bnfc
     cargo
+    cmake-font-lock
+    cmake-mode
     company
     company-ansible
     company-c-headers
@@ -64,6 +69,7 @@ rec {
     dash
     dash-functional
     deferred
+    delight
     direnv
     docker
     docker-tramp
@@ -156,7 +162,9 @@ rec {
     pydoc-info
     pyenv-mode
     pyenv-mode-auto
+    projectile
     pythonic
+    # realgud
     rust-mode
     s
     seq
