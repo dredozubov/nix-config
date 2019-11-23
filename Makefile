@@ -1,7 +1,7 @@
 ENVS    = emacsEnv
 MAX_AGE = 14d
 
-all: link env
+all: link env bin
 
 link:
 	ln -sfn `pwd`/config.nix ~/.config/nixpkgs/config.nix
@@ -11,7 +11,7 @@ link:
 env: link
 	for i in $(ENVS); do			\
 	    echo Updating $$i;			\
-	    nix-env -f '<nixpkgs>' -u --leq	\
+	    nix-env -f '<nixpkgs>' -i	\
 	        -Q -k -A pkgs.$$i ;	\
 	done
 	@echo "Nix generation: $$(nix-env --list-generations | tail -1)"
