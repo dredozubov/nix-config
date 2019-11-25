@@ -62,7 +62,6 @@ rec {
     company-ghci
     company-go
     company-lsp
-    company-lua
     company-math
     conda
     cubicaltt
@@ -130,7 +129,6 @@ rec {
     lsp-haskell
     lsp-mode
     lsp-ui
-    lua-mode
     macrostep
     magit
     magit-popup
@@ -234,17 +232,5 @@ rec {
         };
       };
 
-    # https://github.com/NixOS/nixpkgs/issues/57747
-    w3m = super.stdenv.lib.overrideDerivation esuper.w3m (attrs: rec {
-      name = "emacs-w3m-${version}";
-      version = "20190227.2349";
-      src = self.fetchFromGitHub {
-        owner = "emacs-w3m";
-        repo = "emacs-w3m";
-        rev = "58d7f72e039529833e97b69d8ca2827a2fc69a97";
-        sha256 = "0dn145ha63sbpz8zxbcf3rfcdmdn3ifik1gspb8pdvsnq8vb55mw";
-        # date = 2019-02-27T23:49:44+09:00;
-      };
-    });
   });
 }
