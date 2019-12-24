@@ -1,5 +1,8 @@
 ENVS    = emacsEnv
 MAX_AGE = 14d
+NIXPATH = ${NIX_PATH}
+
+PWD := $(shell pwd)
 
 all: link env bin
 
@@ -9,6 +12,8 @@ link:
 	ln -sfn `pwd`/bin ~/.config/nixpkgs/bin
 
 env: link
+	@echo $(NIX_PATH)
+	export NIX_PATH=$(NIX_PATH)
 	for i in $(ENVS); do			\
 	    echo Updating $$i;			\
 	    nix-env -f '<nixpkgs>' -i	\
@@ -23,3 +28,6 @@ gc:
 .PHONY: list
 list:
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
+
+zshrc:
+	echo "export NIXPATH=nixpkgs=$(PWD)/nixpkgs" >> ~/.zshrc
