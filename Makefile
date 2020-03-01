@@ -10,6 +10,7 @@ link:
 	ln -sfn `pwd`/config.nix ~/.config/nixpkgs/config.nix
 	ln -sfn `pwd`/overlays ~/.config/nixpkgs/overlays
 	ln -sfn `pwd`/bin ~/.config/nixpkgs/bin
+	ln -sfn `pwd`/defexpr.nix ~/.nix-defexpr/default.nix
 
 env: link
 	@echo $(NIX_PATH)
