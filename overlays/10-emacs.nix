@@ -23,7 +23,7 @@ rec {
     self.myEnvFun {
       name = "emacs";
       buildInputs =
-        [ coq_8_9 coqPackages_8_9.ssreflect myEmacs pandoc gdb lldb clang ];
+        [ aspell nix coq_8_9 coqPackages_8_9.ssreflect myEmacs pandoc gdb lldb clang ];
     };
 
   myPackages = epkgs:
@@ -52,6 +52,7 @@ rec {
       company-ghc
       company-ghci
       company-go
+      company-lsp
       company-math
       conda
       cubicaltt
@@ -161,6 +162,7 @@ rec {
       smart-tab
       smartparens
       sml-mode
+      # smtlib-mode
       solarized-theme
       tablist
       undo-tree
